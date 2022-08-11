@@ -6,3 +6,4 @@
 - SQL, JDBC
 - Garbage Collection
 - ООД
+- Тесты, упражнения
