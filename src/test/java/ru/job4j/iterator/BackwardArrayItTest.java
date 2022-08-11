@@ -27,7 +27,6 @@ class BackwardArrayItTest {
         assertThat(it.hasNext()).isTrue();
         assertThat(it.hasNext()).isTrue();
         assertThat(it.next()).isEqualTo(3);
-
     }
 
     @Test
