@@ -1,19 +1,19 @@
 package ru.job4j.iterator;
 
 import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.NoSuchElementException;
-
-import static org.assertj.core.api.Assertions.*;
 
 class ArrayItTest {
 
     @Test
-    public void whenMultiCallhasNextThenTrue() {
+    void whenMultiCallHasNextThenTrue() {
         ArrayIt it = new ArrayIt(
                 new int[] {1, 2, 3}
         );
-        assertThat(it.hasNext()).isTrue();
+        boolean rsl = it.hasNext();
+        assertThat(rsl).isTrue();
         assertThat(it.hasNext()).isTrue();
     }
 
