@@ -11,6 +11,9 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     private int modCount;
 
     public SimpleArrayList(int capacity) {
+        if (capacity < 0) {
+            throw new IllegalArgumentException();
+        }
         this.container = (T[]) new Object[capacity];
     }
 
@@ -25,21 +28,22 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     private T[] grow() {
         modCount++;
+        if (container.length == 0) {
+            return (T[]) new Object[10];
+        }
         return Arrays.copyOf(container, size * 2);
     }
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, size());
-        T oldValue = container[index];
+        T oldValue = get(index);
         container[index] = newValue;
         return oldValue;
     }
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size());
-        T oldValue = container[index];
+        T oldValue = get(index);
         System.arraycopy(
                 container,
                 index + 1,
@@ -47,6 +51,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
                 index,
                 container.length - index - 1
         );
+        container[container.length - 1] = null;
         modCount++;
         size--;
         return oldValue;
@@ -54,7 +59,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T get(int index) {
-        Objects.checkIndex(index, size());
+        Objects.checkIndex(index, size);
         return container[index];
     }
 
@@ -71,7 +76,10 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
             @Override
             public boolean hasNext() {
-                return index < size();
+                if (modCount != expectedModCount) {
+                    throw new ConcurrentModificationException();
+                }
+                return index < size;
             }
 
             @Override
@@ -79,13 +87,8 @@ public class SimpleArrayList<T> implements SimpleList<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                if (modCount != expectedModCount) {
-                    throw new ConcurrentModificationException();
-                }
                 return container[index++];
             }
-
         };
     }
 }
-
