@@ -25,8 +25,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     }
 
     private Node<E> find(int index) {
-        Node<E> temp;
-        temp = first;
+        Node<E> temp = first;
         for (int i = 0; i < index; i++) {
             temp = temp.next;
         }
@@ -50,6 +49,9 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         return new Iterator<E>() {
             private final int expectedModCount = modCount;
             private int index;
+            private Node<E> lastReturned;
+            private Node<E> next = first;
+
 
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
@@ -62,7 +64,10 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return find(index++).item;
+                lastReturned = next;
+                next = next.next;
+                index++;
+                return lastReturned.item;
             }
         };
     }
