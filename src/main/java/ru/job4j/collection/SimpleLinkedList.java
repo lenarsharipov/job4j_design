@@ -11,9 +11,10 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     private int modCount;
     private int size;
 
-    private void linkLast(E e) {
+    @Override
+    public void add(E value) {
         final Node<E> l = last;
-        final Node<E> newNode = new Node<>(e, null);
+        final Node<E> newNode = new Node<>(value, null);
         last = newNode;
         if (l == null) {
             first = newNode;
@@ -22,11 +23,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         }
         size++;
         modCount++;
-    }
-
-    @Override
-    public void add(E value) {
-        linkLast(value);
     }
 
     @Override
