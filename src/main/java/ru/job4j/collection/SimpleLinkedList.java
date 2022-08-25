@@ -24,14 +24,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         modCount++;
     }
 
-    private Node<E> find(int index) {
-        Node<E> temp = first;
-        for (int i = 0; i < index; i++) {
-            temp = temp.next;
-        }
-        return temp;
-    }
-
     @Override
     public void add(E value) {
         linkLast(value);
@@ -40,7 +32,11 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        return find(index).item;
+        Node<E> temp = first;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+        return temp.item;
     }
 
     @Override
@@ -48,7 +44,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
 
         return new Iterator<E>() {
             private final int expectedModCount = modCount;
-            private int index;
             private Node<E> lastReturned;
             private Node<E> next = first;
 
@@ -57,7 +52,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return index < size;
+                return next != null;
             }
 
             public E next() {
@@ -66,7 +61,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
                 }
                 lastReturned = next;
                 next = next.next;
-                index++;
                 return lastReturned.item;
             }
         };
