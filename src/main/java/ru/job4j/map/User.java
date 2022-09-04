@@ -12,4 +12,10 @@ public class User {
         this.children = children;
         this.birthday = birthday;
     }
+
+    public static void main(String[] args) {
+        Calendar birthday = Calendar.getInstance();
+        User user1 = new User("Ivan", 3, birthday);
+        User user2 = new User("Ivan", 3, birthday);
+    }
 }
