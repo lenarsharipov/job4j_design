@@ -54,6 +54,26 @@ class SimpleMapTest {
     }
 
     @Test
+    void whenCheckIteratorWithRehashedTable() {
+        map.put(null, "0000");
+        map.put(15, "15");
+        map.put(8, "8");
+        map.put(16, "16");
+        Iterator<Integer> it = map.iterator();
+        assertThat(it.hasNext()).isTrue();
+        assertThat(it.next()).isNull();
+        assertThat(it.next()).isEqualTo(1);
+        assertThat(it.next()).isEqualTo(2);
+        assertThat(it.next()).isEqualTo(3);
+        assertThat(it.next()).isEqualTo(4);
+        assertThat(it.next()).isEqualTo(8);
+        assertThat(it.next()).isEqualTo(15);
+        assertThat(it.hasNext()).isFalse();
+        assertThatThrownBy(it::next)
+                .isInstanceOf(NoSuchElementException.class);
+    }
+
+    @Test
     void whenCheckIterator() {
         map.remove(2);
         map.remove(3);
