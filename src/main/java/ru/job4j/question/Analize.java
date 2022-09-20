@@ -24,5 +24,4 @@ public class Analize {
         }
         return new Info(added, changed, deleted);
     }
-
 }
