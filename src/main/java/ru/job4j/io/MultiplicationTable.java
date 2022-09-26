@@ -1,6 +1,7 @@
 package ru.job4j.io;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MultiplicationTable {
     public static void main(String[] args) {
@@ -19,8 +20,8 @@ public class MultiplicationTable {
                 out.write(System.lineSeparator().getBytes());
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
     }
 }
