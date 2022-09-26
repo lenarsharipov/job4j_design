@@ -26,7 +26,7 @@ public class LogFilter {
                         new FileOutputStream(file)
                 ))) {
             for (String str : log) {
-                out.printf("%s%n", str);
+                out.println(str);
             }
 
         } catch (IOException e) {
