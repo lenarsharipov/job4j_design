@@ -31,7 +31,7 @@ class ConfigTest {
 
     @Test
     void whenPairWithCommentAppFile() {
-        String path = "./app.properties";
+        String path = "./data/app.properties";
         Config config = new Config(path);
         config.load();
         assertThat(config.value("hibernate.dialect")).isEqualTo("org.hibernate.dialect.PostgreSQLDialect");
