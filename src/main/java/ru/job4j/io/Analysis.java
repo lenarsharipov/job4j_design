@@ -6,16 +6,16 @@ public class Analysis {
     public void unavailable(String source, String target) {
         try (BufferedReader read = new BufferedReader(new FileReader(source))) {
             StringBuilder text = new StringBuilder();
+            boolean flag = true;
             for (String line = read.readLine(); line != null; line = read.readLine()) {
-                if (line.startsWith("400") || line.startsWith("500")) {
+                if ((line.startsWith("400") || line.startsWith("500")) && flag) {
+                    flag = false;
                     text.append(line.split(" ")[1]);
-                    line = read.readLine();
-                    while (line != null && (line.startsWith("400") || line.startsWith("500"))) {
-                        line = read.readLine();
-                    }
-                    if (line != null && (!line.startsWith("400") || !line.startsWith("500"))) {
-                        text.append(";").append(line.split(" ")[1]).append(System.lineSeparator());
-                    }
+                    continue;
+                }
+                if ((!line.startsWith("400") && !line.startsWith("500")) && !flag) {
+                    flag = true;
+                    text.append(";").append(line.split(" ")[1]).append(System.lineSeparator());
                 }
             }
             try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
