@@ -55,7 +55,12 @@ class ConfigTest {
     void whenExceptionsDueToIncorrectTemplate() {
         String path = "./data/pairs_without_key_value_errors.properties";
         Config config = new Config(path);
-        assertThatThrownBy(config::load).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(config::load).isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(
+                        "Нижеуказанная строка не соответствует шаблону:"
+                        + System.lineSeparator()
+                        + "name="
+                );
     }
 
 }
