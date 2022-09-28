@@ -47,17 +47,4 @@ public class Config {
         }
         return out.toString();
     }
-
-    public static void main(String[] args) {
-        System.out.println(new Config("app.properties"));
-        System.out.println(new Config("data/pair_without_comment.properties"));
-
-        String path = "./data/pair_without_comment.properties";
-        Config config = new Config(path);
-        config.load();
-        System.out.println(config.value("name2"));
-        System.out.println(config.value("name"));
-
-    }
-
 }
