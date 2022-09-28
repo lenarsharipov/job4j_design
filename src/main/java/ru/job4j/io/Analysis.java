@@ -10,12 +10,12 @@ public class Analysis {
             for (String line = read.readLine(); line != null; line = read.readLine()) {
                 if ((line.startsWith("400") || line.startsWith("500")) && flag) {
                     flag = false;
-                    text.append(line.split(" ")[1]);
+                    text.append(line.split(" ")[1]).append(";");
                     continue;
                 }
                 if ((!line.startsWith("400") && !line.startsWith("500")) && !flag) {
                     flag = true;
-                    text.append(";").append(line.split(" ")[1]).append(System.lineSeparator());
+                    text.append(line.split(" ")[1]).append(";").append(System.lineSeparator());
                 }
             }
             try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
