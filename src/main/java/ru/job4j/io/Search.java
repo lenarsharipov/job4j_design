@@ -1,5 +1,6 @@
 package ru.job4j.io;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,9 +13,7 @@ public class Search {
         if (args.length < 2) {
             throw new IllegalArgumentException("Root folder and file extension are null. Usage  ROOT_FOLDER, FILE_EXTENSION");
         }
-        if (!validate(args)) {
-            throw new IllegalArgumentException("Parameters are not valid");
-        }
+        validate(args);
         Path start = Paths.get(args[0]);
         search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
@@ -25,7 +24,14 @@ public class Search {
         return searcher.getPaths();
     }
 
-    public static boolean validate(String[] args) {
-        return !args[0].isBlank() && !args[1].isBlank() && args[0].startsWith(".") && args[1].startsWith(".") && args[1].length() != 1;
+    public static void validate(String[] args) {
+        File dir = new File(args[0]);
+        if (!dir.isDirectory()) {
+            throw new IllegalArgumentException(String.format("%s illegal directory", args[0]));
+        }
+
+        if (!args[1].startsWith(".") || args[1].length() == 1) {
+            throw new IllegalArgumentException(String.format("%s - illegal file extension", args[1]));
+        }
     }
 }
