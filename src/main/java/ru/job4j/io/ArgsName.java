@@ -15,19 +15,13 @@ public class ArgsName {
     }
 
     private void parse(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Parameters are null.");
-        }
+
         for (String argument : args) {
-            if (argument == null
-                    || !argument.startsWith("-")
-                    || argument.length() == 1
-                    || !argument.contains("=")
-                    || argument.indexOf("=") == argument.length() - 1
-                    || argument.indexOf("=") == 1) {
+            int index = argument.indexOf("=");
+            if (index < 2 || !argument.startsWith("-") || argument.indexOf("=") == argument.length() - 1) {
                 throw new IllegalArgumentException(String.format("Passed argument illegal - %s.", argument));
             }
-            int index = argument.indexOf("=");
+
             if (argument.charAt(index + 1) == '*') {
                 values.put(argument.substring(1, index), argument.substring(index + 2));
             } else {
@@ -38,6 +32,9 @@ public class ArgsName {
     }
 
     public static ArgsName of(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Parameters are null.");
+        }
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;
