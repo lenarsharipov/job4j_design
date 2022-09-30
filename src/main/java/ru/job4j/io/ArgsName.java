@@ -28,7 +28,11 @@ public class ArgsName {
                 throw new IllegalArgumentException(String.format("Passed argument illegal - %s.", argument));
             }
             int index = argument.indexOf("=");
-            values.put(argument.substring(1, index), argument.substring(index + 1));
+            if (argument.charAt(index + 1) == '*') {
+                values.put(argument.substring(1, index), argument.substring(index + 2));
+            } else {
+                values.put(argument.substring(1, index), argument.substring(index + 1));
+            }
         }
 
     }
