@@ -23,6 +23,16 @@ public class Zip {
         }
     }
 
+    private void validate(ArgsName argsName) {
+        if (argsName.get("d") == null || argsName.get("e") == null || argsName.get("o") == null) {
+            throw new IllegalArgumentException("Passed arguments are illegal.");
+        }
+
+        if (!Paths.get(argsName.get("d")).toFile().exists()) {
+            throw new IllegalArgumentException("Passed directory - does not exist.");
+        }
+    }
+
     public void packSingleFile(File source, File target) {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
             zip.putNextEntry(new ZipEntry(source.getPath()));
@@ -41,9 +51,11 @@ public class Zip {
                 new File("./pom.zip")
         );
 
-        Path directory = Paths.get(ArgsName.validate(args).get("d"));
-        Path exclude = Paths.get(ArgsName.validate(args).get("e"));
-        File output = Paths.get(ArgsName.validate(args).get("o")).toFile();
+        ArgsName argsName = ArgsName.of(args);
+        zip.validate(argsName);
+        Path directory = Paths.get(ArgsName.of(args).get("d"));
+        Path exclude = Paths.get(ArgsName.of(args).get("e"));
+        File output = Paths.get(ArgsName.of(args).get("o")).toFile();
         Predicate<Path> condition = p -> !p.toFile().getName().endsWith(exclude.toString());
         List<Path> sources = Search.search(directory, condition);
         zip.packFiles(sources, output);

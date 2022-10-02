@@ -1,6 +1,5 @@
 package ru.job4j.io;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +9,7 @@ public class ArgsName {
 
     public String get(String key) {
         if (!values.containsKey(key)) {
-            throw new IllegalArgumentException(String.format("%s key does not exist", key));
+            throw new IllegalArgumentException(String.format("%s key does not exist.", key));
         }
         return values.get(key);
     }
@@ -21,44 +20,12 @@ public class ArgsName {
             if (index < 2 || !argument.startsWith("-") || argument.indexOf("=") == argument.length() - 1) {
                 throw new IllegalArgumentException(String.format("Passed argument illegal - %s.", argument));
             }
-            values.put(argument.substring(1, index), argument.substring(index + 1));
-        }
-    }
-
-    private void parseForZip(String[] args) {
-        for (String argument : args) {
-            int index = argument.indexOf("=");
-            if (index < 2 || !argument.startsWith("-") || argument.indexOf("=") == argument.length() - 1) {
-                throw new IllegalArgumentException(String.format("Passed argument illegal - %s.", argument));
-            }
-            if (argument.startsWith("-d")) {
-                File directory = new File(argument.substring(index + 1));
-              if (!directory.exists()) {
-                  throw new IllegalArgumentException(String.format("Passed directory - %s does not exist", directory));
-              }
-              values.put("d", argument.substring(index + 1));
-            }
-
-            if (argument.startsWith("-o")) {
-                values.put("o", argument.substring(index + 1));
-            }
-
-            if (argument.startsWith("-e")) {
-                if (!argument.startsWith("-e=*.")) {
-                    throw new IllegalArgumentException(String.format("Passed excluded file extension illegal - %s", argument));
-                }
-                values.put("e", argument.substring(argument.indexOf("*") + 1));
+            if (argument.charAt(index + 1) == '*') {
+                values.put(argument.substring(1, index), argument.substring(index + 2));
+            } else {
+                values.put(argument.substring(1, index), argument.substring(index + 1));
             }
         }
-    }
-
-    public static ArgsName validate(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Parameters are null.");
-        }
-        ArgsName names = new ArgsName();
-        names.parseForZip(args);
-        return names;
     }
 
     public static ArgsName of(String[] args) {
