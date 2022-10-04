@@ -25,24 +25,25 @@ public class ConsoleChat {
         Scanner scanner = new Scanner(System.in);
         List<String> log = new ArrayList<>();
         List<String> phrases = readPhrases();
+        Random random = new Random();
         while (isOut) {
             String input = scanner.nextLine();
             log.add(String.format("User: %s", input));
 
             if (STOP.equals(input)) {
                 isStop = true;
-                log.add("*** System: BOT STOPPED ***" + System.lineSeparator());
+                log.add(String.format("*** System: BOT STOPPED ***%n"));
             }
             if (CONTINUE.equals(input)) {
                 isStop = false;
-                log.add("*** System: BOT CONTINUED ***" + System.lineSeparator());
+                log.add("*** System: BOT CONTINUED ***");
             }
             if (OUT.equals(input)) {
                 isOut = false;
                 log.add("*** System: CONSOLE CHAT CLOSED ***");
             }
             if (!isStop && isOut) {
-                String answer = phrases.get(new Random().nextInt(phrases.size() - 1));
+                String answer = phrases.get(random.nextInt(phrases.size() - 1));
                 log.add(String.format("Bot: %s", answer));
             }
         }
@@ -52,7 +53,7 @@ public class ConsoleChat {
     private List<String> readPhrases() {
         List<String> phrases = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(botAnswers))) {
-            br.lines().map(s -> s + System.lineSeparator()).forEach(phrases::add);
+            br.lines().map(s -> String.format("%s%n", s)).forEach(phrases::add);
         } catch (IOException e) {
             e.printStackTrace();
         }

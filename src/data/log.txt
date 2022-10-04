@@ -1,20 +1,19 @@
-User: Привет!
-Bot: Привет!
+User: привет
+Bot: Как дела?
 
-User: Как дела?
+User: как дела?
 Bot: Добро пожаловать в чат!
 
 User: стоп
 *** System: BOT STOPPED ***
 
-User: Какой сегодня день?
+User: какой сегодня день?
 User: продолжить
 *** System: BOT CONTINUED ***
+Bot: Привет!
 
-Bot: Добро пожаловать в чат!
-
-User: Привет, бот!
-Bot: Хорошо
+User: привет, бот
+Bot: Как дела?
 
 User: закончить
 *** System: CONSOLE CHAT CLOSED ***
