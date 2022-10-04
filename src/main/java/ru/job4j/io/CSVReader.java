@@ -38,8 +38,13 @@ public class CSVReader {
                 String[] nextLine = scanner.nextLine().split(delimiter);
                 list.add(filter(firstLine, nextLine, size, filter, delimiter));
             }
-            try (PrintWriter pw = new PrintWriter(new FileWriter(out, StandardCharsets.UTF_8, true))) {
-                pw.print(String.join(System.lineSeparator(), list).concat(System.lineSeparator()));
+            String rsl = String.join(System.lineSeparator(), list).concat(System.lineSeparator());
+            if ("stdout".equals(out)) {
+                System.out.println(rsl);
+            } else {
+                try (PrintWriter pw = new PrintWriter(new FileWriter(out, StandardCharsets.UTF_8, false))) {
+                    pw.print(rsl);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,11 +57,19 @@ public class CSVReader {
                 || argsName.get("delimiter") == null
                 || argsName.get("out") == null
                 || argsName.get("filter") == null) {
-            throw new IllegalArgumentException("Passed arguments are illegal.");
+            throw new IllegalArgumentException("Passed arguments are illegal");
         }
 
         if (!Paths.get(argsName.get("path")).toFile().exists()) {
-            throw new IllegalArgumentException("Passed directory - does not exist.");
+            throw new IllegalArgumentException("Passed directory - does not exist");
+        }
+        if (!argsName.get("path").endsWith(".csv")) {
+            throw new IllegalArgumentException("Passed file extension incorrect");
+        }
+
+        if (!argsName.get("delimiter").endsWith(";")
+            && !argsName.get("delimiter").endsWith(",")) {
+            throw new IllegalArgumentException("Passed delimiter incorrect");
         }
     }
 
