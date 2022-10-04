@@ -43,7 +43,7 @@ public class ConsoleChat {
                 log.add("*** System: CONSOLE CHAT CLOSED ***");
             }
             if (!isStop && isOut) {
-                String answer = phrases.get(random.nextInt(phrases.size() - 1));
+                String answer = phrases.get(random.nextInt(phrases.size()));
                 log.add(String.format("Bot: %s", answer));
             }
         }
