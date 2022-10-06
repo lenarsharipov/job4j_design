@@ -6,8 +6,9 @@ import com.google.gson.GsonBuilder;
 public class ItDepartment {
     public static void main(String[] args) {
         final Employee employee = new Employee("Tom", 1, false,
-                new String[] {"Java Middle Developer", "Java Junior Developer"},
-                new Stack("Java", "Maven", "Spring"));
+
+                new Stack("Java", "Maven", "Spring"),
+                "Java Middle Developer", "Java Junior Developer");
 
         final Gson gson = new GsonBuilder().create();
         System.out.println(gson.toJson(employee));
