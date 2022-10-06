@@ -1,20 +1,37 @@
 package ru.job4j.serialization.xml;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.*;
+import java.io.StringWriter;
 import java.util.Arrays;
 
+@XmlRootElement(name = "employee")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Employee {
-    private final String name;
-    private final int id;
-    private final boolean retired;
-    private final String[] positions;
-    private final Stack stack;
+    @XmlAttribute
+    private String name;
+    @XmlAttribute
+    private int id;
+    @XmlAttribute
+    private boolean retired;
 
-    public Employee(String name, int id, boolean retired, String[] positions, Stack stack) {
+    private Stack stack;
+    @XmlElementWrapper(name = "positions")
+    @XmlElement(name = "position")
+    private String[] positions;
+
+    public Employee() {
+
+    }
+
+    public Employee(String name, int id, boolean retired, Stack stack, String... positions) {
         this.name = name;
         this.id = id;
         this.retired = retired;
-        this.positions = positions;
         this.stack = stack;
+        this.positions = positions;
     }
 
     @Override
@@ -23,8 +40,26 @@ public class Employee {
                 + "name='" + name + '\''
                 + ", id=" + id
                 + ", retired=" + retired
-                + ", positions=" + Arrays.toString(positions)
                 + ", stack=" + stack
+                + ", positions=" + Arrays.toString(positions)
                 + '}';
+    }
+
+    public static void main(String[] args) throws JAXBException {
+        final Employee employee = new Employee("Tom", 1, false,
+                new Stack("Java", "Maven", "Spring"),
+                "Java Middle Developer", "Java Junior Developer");
+
+        JAXBContext context = JAXBContext.newInstance(Employee.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+        try (StringWriter writer = new StringWriter()) {
+            marshaller.marshal(employee, writer);
+            String result = writer.getBuffer().toString();
+            System.out.println(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

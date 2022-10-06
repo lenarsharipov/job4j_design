@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <employee name="Tom" id="1" retired="false">
-    <positions>
-        <status>Java Middle Developer</status>
-        <status>Java Junior Developer</status>
-    </positions>
     <stack pL="Java" buildTool="Maven" webFramework="Spring"/>
+    <positions>
+        <position>Java Middle Developer</position>
+        <position>Java Junior Developer</position>
+    </positions>
 </employee>
