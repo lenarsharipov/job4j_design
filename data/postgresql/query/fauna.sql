@@ -12,7 +12,7 @@ insert into fauna (name, avg_age, discovery_date) values ('морской кон
 insert into fauna (name, avg_age, discovery_date) values ('слон', 20000, null);
 
 select * from fauna
-where name like '%рыба' or name like 'рыба%' or name like '%рыба%';
+where name like '%рыба%';
 
 select * from fauna
 where avg_age between 10000 and 21000;
