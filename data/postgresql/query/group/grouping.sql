@@ -31,13 +31,13 @@ select avg(price) from devices;
 
 select people.name, avg(devices.price)
 from people
-inner join devices_people on people.id = device_id
-inner join devices on devices.id = people_id
+join devices_people on people.id = devices_people.people_id
+join devices on devices.id = devices_people.device_id
 group by people.name;
 
-select p.name, avg(d.price)
+select p.name Имя, avg(d.price) Средняя_стоимость
 from people p
-join devices_people dp on p.id = dp.device_id
-join devices d on d.id = dp.people_id
+join devices_people dp on p.id = dp.people_id
+join devices d on d.id = dp.device_id
 group by p.name
-having avg(d.price) > 5000
+having avg(d.price) > 50000;
