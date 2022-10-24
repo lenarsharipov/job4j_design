@@ -8,37 +8,31 @@ select c.name Авто, cb.name Кузов, ce.name Двигатель, ct.name 
 from cars c
 left join car_bodies cb ON cb.id = c.body_id
 left join car_engines ce ON ce.id = c.engine_id
-left join car_transmissions ct ON ct.id = c.transmission_id
+left join car_transmissions ct ON ct.id = c.transmission_id;
 
 
 /*
 Вывести кузовы, которые не используются НИ в одной машине.
 */
-select c.name Авто, cb.name Кузов, ce.name Двигатель, ct.name Трансмиссия
+select cb.name Кузов
 from car_bodies cb
 left join cars c on cb.id = c.body_id
-left join car_engines ce on ce.id = c.engine_id
-left join car_transmissions ct on ct.id = c.transmission_id
 where c.body_id is null;
 
 
 /*
 Вывести двигатели, которые не используются НИ в одной машине
 */
-select c.name Авто, cb.name Кузов, ce.name Двигатель, ct.name Трансмиссия
+select ce.name Двигатель
 from car_engines ce
 left join cars c on ce.id = c.engine_id
-left join car_bodies cb on cb.id = c.body_id
-left join car_transmissions ct on ct.id = c.transmission_id
 where c.engine_id is null;
 
 
 /*
 Вывести коробки передач, которые не используются НИ в одной машине
 */
-select c.name Авто, cb.name Кузов, ce.name Двигатель, ct.name Трансмиссия
+select ct.name Трансмиссия
 from car_transmissions ct
 left join cars c on ct.id = c.transmission_id
-left join car_engines ce on ce.id = c.engine_id
-left join car_bodies cb on cb.id = c.body_id
 where c.transmission_id is null;
