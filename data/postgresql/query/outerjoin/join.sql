@@ -22,21 +22,21 @@ insert into employees(name, department_id) values   ('IVAN', 1), ('DIMA', 1), ('
 select e.name Сотрудник, d.name Отдел
 from employees e
 right join departments d
-on d.id = e.department_id
+on d.id = e.department_id;
 
 select e.name Сотрудник, d.name Отдел
 from employees e
 left join departments d
-on d.id = e.department_id
+on d.id = e.department_id;
 
 select e.name Сотрудник, d.name Отдел
 from employees e
 full join departments d
-on d.id = e.department_id
+on d.id = e.department_id;
 
 select e.name Сотрудник, d.name Отдел
 from employees e
-cross join departments d
+cross join departments d;
 
 
 /*
@@ -46,7 +46,7 @@ select e.name Сотрудник, d.name Отдел
 from departments d
 left join employees e
 on d.id = e.department_id
-where e.id is null
+where e.id is null;
 
 
 /*
@@ -74,9 +74,10 @@ create table teens (
     gender varchar(50)
 );
 
-insert into teens(name, gender) values ('Ivan', 'male') , ('Anna', 'female');
-insert into teens(name) values ('Dima'), ('Olga');
+insert into teens(name, gender) values ('Ivan', 'male') ,
+                                       ('Anna', 'female');
 
 select t1.name, t2.gender
 from teens t1
-cross join teens t2;
+cross join teens t2
+where t1.gender != t2.gender;
