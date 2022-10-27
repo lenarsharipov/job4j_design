@@ -16,11 +16,9 @@ create or replace function add_inserts()
     returns trigger as
 $$
     begin
-        if TG_OP = 'INSERT' then
-            insert into history_of_price(name, price, date) values (new.name, new.price, now());
-            insert into products(name, producer, count, price) values (new.name, new.producer, new.count, new.price);
-            return new;
-        end if;
+        insert into history_of_price(name, price, date) values (new.name, new.price, now());
+        insert into products(name, producer, count, price) values (new.name, new.producer, new.count, new.price);
+        return new;
     end;
 $$
 language 'plpgsql';
