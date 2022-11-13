@@ -25,7 +25,10 @@ public class Ticket3D implements Ticket {
             return false;
         }
         Ticket3D ticket3D = (Ticket3D) o;
-        return row == ticket3D.row && column == ticket3D.column && Objects.equals(account, ticket3D.account) && Objects.equals(date, ticket3D.date);
+        return row == ticket3D.row
+                && column == ticket3D.column
+                && Objects.equals(account, ticket3D.account)
+                && Objects.equals(date, ticket3D.date);
     }
 
     @Override

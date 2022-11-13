@@ -9,7 +9,6 @@ public class Cinema3D implements Cinema {
     private static final int ROWS = 10;
     private static final int COLUMNS = 20;
     private static final List<Session> SESSIONS = new ArrayList<>();
-
     private static final List<Ticket> TICKETS = new ArrayList<>();
 
     @Override
