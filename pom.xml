@@ -18,6 +18,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.apache.juneau</groupId>
+      <artifactId>juneau-all</artifactId>
+      <version>8.0.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>42.5.0</version>
