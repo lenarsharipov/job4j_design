@@ -34,7 +34,8 @@ public class ItReportEngine implements Report {
             text.append(employee.getName()).append(delimiter)
                     .append(dateTimeParser.parse(employee.getHired())).append(delimiter)
                     .append(dateTimeParser.parse(employee.getFired())).append(delimiter)
-                    .append(employee.getSalary()).append(delimiter);
+                    .append(employee.getSalary()).append(delimiter)
+                    .append(System.lineSeparator());
         }
         return text.toString();
     }

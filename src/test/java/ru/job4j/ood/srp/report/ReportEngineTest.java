@@ -40,8 +40,10 @@ public class ReportEngineTest {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
+        Employee worker2 = new Employee("Oleg", now, now, 200);
         DateTimeParser<Calendar> parser = new ReportDateTimeParser();
         store.add(worker);
+        store.add(worker2);
         String delimiter = ";";
         Report engine = new ItReportEngine(store, parser, delimiter);
         StringBuilder expect = new StringBuilder();
@@ -53,7 +55,13 @@ public class ReportEngineTest {
                 .append(worker.getName()).append(delimiter)
                 .append(parser.parse(worker.getHired())).append(delimiter)
                 .append(parser.parse(worker.getFired())).append(delimiter)
-                .append(worker.getSalary()).append(delimiter);
+                .append(worker.getSalary()).append(delimiter)
+                .append(System.lineSeparator())
+                .append(worker2.getName()).append(delimiter)
+                .append(parser.parse(worker2.getHired())).append(delimiter)
+                .append(parser.parse(worker2.getFired())).append(delimiter)
+                .append(worker2.getSalary()).append(delimiter)
+                .append(System.lineSeparator());
         assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
     }
 
