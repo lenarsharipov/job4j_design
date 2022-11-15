@@ -46,15 +46,14 @@ public class ReportEngineTest {
         Report engine = new ItReportEngine(store, parser, delimiter);
         StringBuilder expect = new StringBuilder();
         expect.append("Name").append(delimiter)
-                .append(" Hired").append(delimiter)
-                .append(" Fired").append(delimiter)
-                .append(" Salary").append(delimiter)
+                .append("Hired").append(delimiter)
+                .append("Fired").append(delimiter)
+                .append("Salary").append(delimiter)
                 .append(System.lineSeparator())
-                .append(worker.getName()).append(delimiter).append(" ")
-                .append(parser.parse(worker.getHired())).append(delimiter).append(" ")
-                .append(parser.parse(worker.getFired())).append(delimiter).append(" ")
-                .append(worker.getSalary()).append(delimiter)
-                .append(System.lineSeparator());
+                .append(worker.getName()).append(delimiter)
+                .append(parser.parse(worker.getHired())).append(delimiter)
+                .append(parser.parse(worker.getFired())).append(delimiter)
+                .append(worker.getSalary()).append(delimiter);
         assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
     }
 
@@ -65,18 +64,17 @@ public class ReportEngineTest {
         Employee worker = new Employee("Ivan", now, now, 100);
         DateTimeParser<Calendar> parser = new ReportDateTimeParser();
         store.add(worker);
-        Currency source = Currency.RUB;
         Currency target = Currency.USD;
         CurrencyConverter currencyConverter = new InMemoryCurrencyConverter();
         Report engine =
-                new AccountingReportEngine(store, parser, currencyConverter, source, target);
+                new AccountingReportEngine(store, parser, currencyConverter, target);
         StringBuilder expect = new StringBuilder()
                 .append("Name; Hired; Fired; Salary;")
                 .append(System.lineSeparator())
                 .append(worker.getName()).append(" ")
                 .append(parser.parse(worker.getHired())).append(" ")
                 .append(parser.parse(worker.getFired())).append(" ")
-                .append(currencyConverter.convert(source, worker.getSalary(), target))
+                .append(currencyConverter.convert(Currency.RUB, worker.getSalary(), target))
                 .append(System.lineSeparator());
         assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
     }

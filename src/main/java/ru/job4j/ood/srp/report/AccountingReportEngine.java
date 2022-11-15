@@ -13,18 +13,16 @@ public class AccountingReportEngine implements Report {
     private final Store store;
     private final DateTimeParser<Calendar> dateTimeParser;
     private final CurrencyConverter currencyConverter;
-    private final Currency sourceCurrency;
+    private final static Currency SOURCE_CURRENCY = Currency.RUB;
     private final Currency targetCurrency;
 
     public AccountingReportEngine(Store store,
                                   DateTimeParser<Calendar> dateTimeParser,
                                   CurrencyConverter currencyConverter,
-                                  Currency sourceCurrency,
                                   Currency targetCurrency) {
         this.store = store;
         this.dateTimeParser = dateTimeParser;
         this.currencyConverter = currencyConverter;
-        this.sourceCurrency = sourceCurrency;
         this.targetCurrency = targetCurrency;
     }
 
@@ -37,7 +35,7 @@ public class AccountingReportEngine implements Report {
             text.append(employee.getName()).append(" ")
                     .append(dateTimeParser.parse(employee.getHired())).append(" ")
                     .append(dateTimeParser.parse(employee.getFired())).append(" ")
-                    .append(currencyConverter.convert(sourceCurrency, employee.getSalary(), targetCurrency))
+                    .append(currencyConverter.convert(SOURCE_CURRENCY, employee.getSalary(), targetCurrency))
                     .append(System.lineSeparator());
         }
         return text.toString();

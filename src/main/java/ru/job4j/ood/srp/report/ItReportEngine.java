@@ -25,13 +25,16 @@ public class ItReportEngine implements Report {
     @Override
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
-        text.append("Name; Hired; Fired; Salary;")
+        text.append("Name").append(delimiter)
+                .append("Hired").append(delimiter)
+                .append("Fired").append(delimiter)
+                .append("Salary").append(delimiter)
                 .append(System.lineSeparator());
         for (Employee employee : store.findBy(filter)) {
-            text.append(employee.getName()).append(String.format("%s ", delimiter))
-                    .append(dateTimeParser.parse(employee.getHired())).append(String.format("%s ", delimiter))
-                    .append(dateTimeParser.parse(employee.getFired())).append(String.format("%s ", delimiter))
-                    .append(employee.getSalary()).append(String.format("%s%n", delimiter));
+            text.append(employee.getName()).append(delimiter)
+                    .append(dateTimeParser.parse(employee.getHired())).append(delimiter)
+                    .append(dateTimeParser.parse(employee.getFired())).append(delimiter)
+                    .append(employee.getSalary()).append(delimiter);
         }
         return text.toString();
     }
