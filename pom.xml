@@ -20,7 +20,7 @@
     <dependency>
       <groupId>org.apache.juneau</groupId>
       <artifactId>juneau-all</artifactId>
-      <version>8.0.0</version>
+      <version>8.2.0</version>
     </dependency>
     <dependency>
       <groupId>org.postgresql</groupId>
@@ -30,7 +30,7 @@
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
-      <version>20200518</version>
+      <version>20220924</version>
     </dependency>
     <dependency>
       <groupId>javax.xml.bind</groupId>
