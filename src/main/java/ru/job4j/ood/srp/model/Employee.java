@@ -1,12 +1,16 @@
 package ru.job4j.ood.srp.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 public class Employee {
+
     private String name;
     private Calendar hired;
     private Calendar fired;
+
     private double salary;
 
     public Employee(String name, Calendar hired, Calendar fired, double salary) {
@@ -72,4 +76,29 @@ public class Employee {
                 + ", salary=" + salary
                 + '}';
     }
+
+    @XmlRootElement(name = "employees")
+    public static class Employees {
+        private List<Employee> employees;
+
+        public Employees() {
+
+        }
+
+        public Employees(List<Employee> employees) {
+            this.employees = employees;
+        }
+
+        public void setEmployees(List<Employee> employees) {
+            this.employees = employees;
+        }
+
+        public List<Employee> getEmployees() {
+            return employees;
+        }
+    }
 }
+
+
+
+

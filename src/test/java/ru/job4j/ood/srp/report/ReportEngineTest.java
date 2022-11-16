@@ -1,14 +1,18 @@
 package ru.job4j.ood.srp.report;
 
+import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.srp.currency.Currency;
 import ru.job4j.ood.srp.currency.CurrencyConverter;
 import ru.job4j.ood.srp.currency.InMemoryCurrencyConverter;
 import ru.job4j.ood.srp.formatter.DateTimeParser;
 import ru.job4j.ood.srp.formatter.ReportDateTimeParser;
+import ru.job4j.ood.srp.formatter.XmlReportDateTimeParser;
 import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.store.MemStore;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import java.util.Calendar;
 import java.util.Comparator;
 
@@ -63,6 +67,98 @@ public class ReportEngineTest {
                 .append(worker2.getSalary()).append(delimiter)
                 .append(System.lineSeparator());
         assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
+    }
+
+    @Test
+    public void whenXmlReportGenerated() throws JAXBException {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee worker = new Employee("Ivan", now, now, 100);
+        Employee worker2 = new Employee("Oleg", now, now, 200);
+        Employee worker3 = new Employee("Anna", now, now, 300);
+        DateTimeParser<Calendar> parser = new XmlReportDateTimeParser();
+        store.add(worker);
+        store.add(worker2);
+        store.add(worker3);
+        Report engine = new XmlReportEngine(store, JAXBContext.newInstance(Employee.Employees.class));
+        StringBuilder expect = new StringBuilder();
+        expect.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
+                .append("<employees>")
+                    .append("<employees>")
+                        .append("<fired>").append(parser.parse(worker.getFired())).append("</fired>")
+                        .append("<hired>").append(parser.parse(worker.getFired())).append("</hired>")
+                        .append("<name>").append(worker.getName()).append("</name>")
+                        .append("<salary>").append(worker.getSalary()).append("</salary>")
+                    .append("</employees>")
+                    .append("<employees>")
+                        .append("<fired>").append(parser.parse(worker2.getFired())).append("</fired>")
+                        .append("<hired>").append(parser.parse(worker2.getFired())).append("</hired>")
+                        .append("<name>").append(worker2.getName()).append("</name>")
+                        .append("<salary>").append(worker2.getSalary()).append("</salary>")
+                    .append("</employees>")
+                .append("</employees>");
+        assertThat(engine.generate(em -> em.getSalary() < 300)).isEqualTo(expect.toString());
+    }
+
+    @Test
+    public void whenJsonReportGenerated() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee worker1 = new Employee("Ivan", now, now, 100);
+        Employee worker2 = new Employee("Oleg", now, now, 200);
+        Employee worker3 = new Employee("Anna", now, now, 300);
+        Employee worker4 = new Employee("Olga", now, now, 400);
+        Employee worker5 = new Employee("Dmitriy", now, now, 500);
+        store.add(worker1);
+        store.add(worker2);
+        store.add(worker3);
+        store.add(worker4);
+        store.add(worker5);
+        Report engine = new JsonReportEngine(store, new GsonBuilder().create());
+        StringBuilder expect = new StringBuilder();
+        expect.append("{")
+                .append("\"name\":\"").append(worker4.getName()).append("\",")
+                .append("\"hired\":")
+                .append("{\"year\":").append(worker4.getHired().get(Calendar.YEAR)).append(",")
+                .append("\"month\":").append(worker4.getHired().get(Calendar.MONTH)).append(",")
+                .append("\"dayOfMonth\":").append(worker4.getHired().get(Calendar.DAY_OF_MONTH)).append(",")
+                .append("\"hourOfDay\":").append(worker4.getHired().get(Calendar.HOUR_OF_DAY)).append(",")
+                .append("\"minute\":").append(worker4.getHired().get(Calendar.MINUTE)).append(",")
+                .append("\"second\":").append(worker4.getHired().get(Calendar.SECOND))
+                .append("},")
+                .append("\"fired\":")
+                .append("{\"year\":").append(worker4.getFired().get(Calendar.YEAR)).append(",")
+                .append("\"month\":").append(worker4.getFired().get(Calendar.MONTH)).append(",")
+                .append("\"dayOfMonth\":").append(worker4.getFired().get(Calendar.DAY_OF_MONTH)).append(",")
+                .append("\"hourOfDay\":").append(worker4.getFired().get(Calendar.HOUR_OF_DAY)).append(",")
+                .append("\"minute\":").append(worker4.getFired().get(Calendar.MINUTE)).append(",")
+                .append("\"second\":").append(worker4.getFired().get(Calendar.SECOND))
+                .append("},")
+                .append("\"salary\":").append(worker4.getSalary())
+                .append("}")
+                .append(System.lineSeparator())
+                .append("{")
+                .append("\"name\":\"").append(worker5.getName()).append("\",")
+                .append("\"hired\":")
+                .append("{\"year\":").append(worker5.getHired().get(Calendar.YEAR)).append(",")
+                .append("\"month\":").append(worker5.getHired().get(Calendar.MONTH)).append(",")
+                .append("\"dayOfMonth\":").append(worker5.getHired().get(Calendar.DAY_OF_MONTH)).append(",")
+                .append("\"hourOfDay\":").append(worker5.getHired().get(Calendar.HOUR_OF_DAY)).append(",")
+                .append("\"minute\":").append(worker5.getHired().get(Calendar.MINUTE)).append(",")
+                .append("\"second\":").append(worker5.getHired().get(Calendar.SECOND))
+                .append("},")
+                .append("\"fired\":")
+                .append("{\"year\":").append(worker5.getFired().get(Calendar.YEAR)).append(",")
+                .append("\"month\":").append(worker5.getFired().get(Calendar.MONTH)).append(",")
+                .append("\"dayOfMonth\":").append(worker5.getFired().get(Calendar.DAY_OF_MONTH)).append(",")
+                .append("\"hourOfDay\":").append(worker5.getFired().get(Calendar.HOUR_OF_DAY)).append(",")
+                .append("\"minute\":").append(worker5.getFired().get(Calendar.MINUTE)).append(",")
+                .append("\"second\":").append(worker5.getFired().get(Calendar.SECOND))
+                .append("},")
+                .append("\"salary\":").append(worker5.getSalary())
+                .append("}")
+                .append(System.lineSeparator());
+        assertThat(engine.generate(em -> em.getSalary() > 300)).isEqualTo(expect.toString());
     }
 
     @Test
