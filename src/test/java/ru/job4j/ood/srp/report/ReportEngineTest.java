@@ -1,6 +1,5 @@
 package ru.job4j.ood.srp.report;
 
-import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.srp.currency.Currency;
 import ru.job4j.ood.srp.currency.CurrencyConverter;
@@ -114,9 +113,9 @@ public class ReportEngineTest {
         store.add(worker3);
         store.add(worker4);
         store.add(worker5);
-        Report engine = new JsonReportEngine(store, new GsonBuilder().create());
+        Report engine = new JsonReportEngine(store);
         StringBuilder expect = new StringBuilder();
-        expect.append("{")
+        expect.append("[{")
                 .append("\"name\":\"").append(worker4.getName()).append("\",")
                 .append("\"hired\":")
                 .append("{\"year\":").append(worker4.getHired().get(Calendar.YEAR)).append(",")
@@ -135,8 +134,7 @@ public class ReportEngineTest {
                 .append("\"second\":").append(worker4.getFired().get(Calendar.SECOND))
                 .append("},")
                 .append("\"salary\":").append(worker4.getSalary())
-                .append("}")
-                .append(System.lineSeparator())
+                .append("},")
                 .append("{")
                 .append("\"name\":\"").append(worker5.getName()).append("\",")
                 .append("\"hired\":")
@@ -156,8 +154,7 @@ public class ReportEngineTest {
                 .append("\"second\":").append(worker5.getFired().get(Calendar.SECOND))
                 .append("},")
                 .append("\"salary\":").append(worker5.getSalary())
-                .append("}")
-                .append(System.lineSeparator());
+                .append("}]");
         assertThat(engine.generate(em -> em.getSalary() > 300)).isEqualTo(expect.toString());
     }
 

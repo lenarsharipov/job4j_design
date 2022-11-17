@@ -14,10 +14,14 @@ public class XmlReportEngine implements Report {
     private final Store store;
     private final Marshaller marshaller;
 
-    public XmlReportEngine(Store store, JAXBContext context) throws JAXBException {
+    public XmlReportEngine(Store store, JAXBContext context) {
         this.store = store;
-        this.marshaller = context.createMarshaller();
-        this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
+        try {
+            this.marshaller = context.createMarshaller();
+            this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
+        } catch (JAXBException jaxbException) {
+            throw new IllegalArgumentException();
+        }
     }
 
     @Override
