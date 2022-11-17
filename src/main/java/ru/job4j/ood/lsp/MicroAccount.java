@@ -17,7 +17,7 @@ public class MicroAccount extends Account {
     @Override
     public double getInterest(double sum, int month, int rate) {
         if (sum < 0 || month > 12 || month < 1 || rate < 0) {
-            throw new IllegalArgumentException("Некорректные данные");
+            throw new IllegalArgumentException("Arguments illegal");
         }
 
         double result = sum;
