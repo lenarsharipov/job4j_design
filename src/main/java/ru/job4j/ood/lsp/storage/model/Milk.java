@@ -36,4 +36,5 @@ public class Milk extends Food {
     public int hashCode() {
         return Objects.hash(super.hashCode(), name, createDate, expiryDate, price, discount);
     }
+
 }

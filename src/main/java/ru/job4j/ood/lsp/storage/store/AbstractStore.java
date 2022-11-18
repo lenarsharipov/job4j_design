@@ -20,4 +20,5 @@ public class AbstractStore implements Store {
                 .filter(filter)
                 .collect(Collectors.toList());
     }
+
 }

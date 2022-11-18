@@ -132,5 +132,4 @@ class ControlQualityTest {
                 new Milk("молоко 3.2%", produced, expired, 40, 110)
         );
     }
-
 }

@@ -101,4 +101,5 @@ public class Food {
     public int hashCode() {
         return Objects.hash(name, createDate, expiryDate, price, discount);
     }
+
 }

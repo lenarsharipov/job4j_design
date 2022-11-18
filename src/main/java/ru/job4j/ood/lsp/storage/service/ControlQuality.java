@@ -45,5 +45,4 @@ public class ControlQuality {
                 - food.getCreateDate().getTimeInMillis();
         return now / exp * 100;
     }
-
 }
