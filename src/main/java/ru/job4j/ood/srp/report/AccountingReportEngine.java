@@ -35,7 +35,8 @@ public class AccountingReportEngine implements Report {
             text.append(employee.getName()).append(" ")
                     .append(dateTimeParser.parse(employee.getHired())).append(" ")
                     .append(dateTimeParser.parse(employee.getFired())).append(" ")
-                    .append(currencyConverter.convert(SOURCE_CURRENCY, employee.getSalary(), targetCurrency))
+                    .append(currencyConverter.convert(
+                            SOURCE_CURRENCY, employee.getSalary(), targetCurrency))
                     .append(System.lineSeparator());
         }
         return text.toString();

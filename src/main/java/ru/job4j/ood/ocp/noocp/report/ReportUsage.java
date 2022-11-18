@@ -8,7 +8,10 @@ public class ReportUsage {
     private final HtmlReport htmlReport;
     private final JsonReport jsonReport;
 
-    public ReportUsage(ConsoleReport consoleReport, CsvReport csvReport, HtmlReport htmlReport, JsonReport jsonReport) {
+    public ReportUsage(ConsoleReport consoleReport,
+                       CsvReport csvReport,
+                       HtmlReport htmlReport,
+                       JsonReport jsonReport) {
         this.consoleReport = consoleReport;
         this.csvReport = csvReport;
         this.htmlReport = htmlReport;
@@ -32,7 +35,8 @@ public class ReportUsage {
     }
 
     public static void main(String[] args) {
-        ReportUsage reportUsage = new ReportUsage(new ConsoleReport(), new CsvReport(), new HtmlReport(), new JsonReport());
+        ReportUsage reportUsage = new ReportUsage(
+                new ConsoleReport(), new CsvReport(), new HtmlReport(), new JsonReport());
         Client ivan = new Client("Ivan", "Ivanov", true);
         System.out.println(reportUsage.getConsoleReport(ivan));
         System.out.println(reportUsage.getHtmlReport(ivan));

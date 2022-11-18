@@ -15,7 +15,8 @@ public class Analize {
         for (User user : current) {
             if (map.get(user.getId()) != null && map.get(user.getId()).equals(user.getName())) {
                 deleted--;
-            } else if (map.get(user.getId()) != null && !map.get(user.getId()).equals(user.getName())) {
+            } else if (map.get(user.getId()) != null
+                    && !map.get(user.getId()).equals(user.getName())) {
                 changed++;
                 deleted--;
             } else {

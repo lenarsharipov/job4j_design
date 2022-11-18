@@ -24,7 +24,8 @@ class SimpleConvertTest {
     @Test
     void checkList() {
         SimpleConvert simpleConvert = new SimpleConvert();
-        List<String> list = simpleConvert.toList("first", "second", "three", "four", "five", "second", "three");
+        List<String> list = simpleConvert.toList(
+                "first", "second", "three", "four", "five", "second", "three");
         assertThat(list).hasSize(7)
                 .contains("second", "four")
                 .contains("three", Index.atIndex(2))
@@ -47,7 +48,8 @@ class SimpleConvertTest {
     @Test
     void checkSet() {
         SimpleConvert simpleConvert = new SimpleConvert();
-        Set<String> set = simpleConvert.toSet("first", "second", "three", "four", "five", "second", "three");
+        Set<String> set = simpleConvert.toSet(
+                "first", "second", "three", "four", "five", "second", "three");
         assertThat(set).hasSize(5)
                 .contains("second", "four")
                 .containsAnyOf("four", "zero", "ten")

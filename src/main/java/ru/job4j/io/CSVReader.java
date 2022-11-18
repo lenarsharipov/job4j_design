@@ -6,7 +6,11 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class CSVReader {
-    private static String filter(String[] firstLine, String[] nextLine, int size, String filter, String delimiter) {
+    private static String filter(String[] firstLine,
+                                 String[] nextLine,
+                                 int size,
+                                 String filter,
+                                 String delimiter) {
         Map<String, Integer> map = new HashMap<>();
         for (int i = 0; i < firstLine.length; i++) {
             map.put(firstLine[i], i);
@@ -42,7 +46,8 @@ public class CSVReader {
             if ("stdout".equals(out)) {
                 System.out.println(rsl);
             } else {
-                try (PrintWriter pw = new PrintWriter(new FileWriter(out, StandardCharsets.UTF_8, false))) {
+                try (PrintWriter pw = new PrintWriter(
+                        new FileWriter(out, StandardCharsets.UTF_8, false))) {
                     pw.print(rsl);
                 }
             }

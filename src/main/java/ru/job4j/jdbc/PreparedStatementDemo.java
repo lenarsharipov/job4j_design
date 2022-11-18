@@ -21,7 +21,8 @@ public class PreparedStatementDemo {
 
     public City insert(City city) throws Exception {
         try (PreparedStatement statement =
-                     connection.prepareStatement("insert into cities(name, population) values (?, ?)",
+                     connection.prepareStatement(
+                             "insert into cities(name, population) values (?, ?)",
                              Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, city.getName());
             statement.setInt(2, city.getPopulation());
@@ -39,7 +40,8 @@ public class PreparedStatementDemo {
 
     public boolean update(City city) {
         boolean result = false;
-        try (PreparedStatement statement = connection.prepareStatement("update cities set name = ?, population = ? where id = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement(
+                "update cities set name = ?, population = ? where id = ?")) {
             statement.setString(1, city.getName());
             statement.setInt(2, city.getPopulation());
             statement.setInt(3, city.getId());
@@ -52,7 +54,8 @@ public class PreparedStatementDemo {
 
     public boolean delete(int id) {
         boolean result = false;
-        try (PreparedStatement statement = connection.prepareStatement("delete from cities where id = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement(
+                "delete from cities where id = ?")) {
             statement.setInt(1, id);
             result = statement.executeUpdate() > 0;
         } catch (Exception e) {

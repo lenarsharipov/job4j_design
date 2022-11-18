@@ -54,7 +54,10 @@ public class Employee {
     }
 
     public static void main(String[] args) {
-        JSONObject jsonStack = new JSONObject("{\"programmingLanguage\":\"Java\", \"buildTool\":\"Ant\", \"webFramework\":\"Java Servlet\"}");
+        JSONObject jsonStack = new JSONObject(
+                "{\"programmingLanguage\":\"Java\", "
+                        + "\"buildTool\":\"Ant\", \"webFramework\":\"Java Servlet\"}"
+        );
 
         List<String> list = new ArrayList<>();
         list.add("Java Junior Developer");

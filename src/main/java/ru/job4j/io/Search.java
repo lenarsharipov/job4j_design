@@ -11,7 +11,9 @@ import java.util.function.Predicate;
 public class Search {
     public static void main(String[] args) throws IOException {
         if (args.length < 2) {
-            throw new IllegalArgumentException("Root folder and file extension are null. Usage  ROOT_FOLDER, FILE_EXTENSION");
+            throw new IllegalArgumentException(
+                    "Root folder and file extension are null. Usage  ROOT_FOLDER, FILE_EXTENSION"
+            );
         }
         validate(args);
         Path start = Paths.get(args[0]);
@@ -31,7 +33,9 @@ public class Search {
         }
 
         if (!args[1].startsWith(".") || args[1].length() == 1) {
-            throw new IllegalArgumentException(String.format("%s - illegal file extension", args[1]));
+            throw new IllegalArgumentException(
+                    String.format("%s - illegal file extension", args[1])
+            );
         }
     }
 }

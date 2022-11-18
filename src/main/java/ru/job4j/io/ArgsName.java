@@ -17,8 +17,12 @@ public class ArgsName {
     private void parse(String[] args) {
         for (String argument : args) {
             int index = argument.indexOf("=");
-            if (index < 2 || !argument.startsWith("-") || argument.indexOf("=") == argument.length() - 1) {
-                throw new IllegalArgumentException(String.format("Passed argument illegal - %s.", argument));
+            if (index < 2
+                    || !argument.startsWith("-")
+                    || argument.indexOf("=") == argument.length() - 1) {
+                throw new IllegalArgumentException(
+                        String.format("Passed argument illegal - %s.", argument)
+                );
             }
             if (argument.charAt(index + 1) == '*') {
                 values.put(argument.substring(1, index), argument.substring(index + 2));

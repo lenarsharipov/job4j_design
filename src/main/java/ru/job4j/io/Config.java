@@ -22,8 +22,13 @@ public class Config {
                 if (line.length() == 0 || line.startsWith("#")) {
                     continue;
                 }
-                if (line.startsWith("=") || !line.contains("=") || (line.indexOf('=') == line.length() - 1)) {
-                    throw new IllegalArgumentException("Нижеуказанная строка не соответствует шаблону:" + System.lineSeparator() + line);
+                if (line.startsWith("=")
+                        || !line.contains("=")
+                        || (line.indexOf('=') == line.length() - 1)) {
+                    throw new IllegalArgumentException(
+                            "Нижеуказанная строка не соответствует шаблону:"
+                                    + System.lineSeparator() + line
+                    );
                 }
                 int index = line.indexOf('=');
                 values.put(line.substring(0, index), line.substring(index + 1));

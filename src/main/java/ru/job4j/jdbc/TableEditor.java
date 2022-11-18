@@ -91,7 +91,9 @@ public class TableEditor implements AutoCloseable {
         executeUpdate(sql);
     }
 
-    public void renameColumn(String tableName, String columnName, String newColumnName) throws Exception {
+    public void renameColumn(String tableName,
+                             String columnName,
+                             String newColumnName) throws Exception {
         var sql = String.format(
                 "alter table if exists %s rename column %s to %s",
                 tableName,

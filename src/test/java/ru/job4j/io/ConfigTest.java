@@ -34,9 +34,12 @@ class ConfigTest {
         String path = "./data/app.properties";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("hibernate.dialect")).isEqualTo("org.hibernate.dialect.PostgreSQLDialect");
-        assertThat(config.value("hibernate.connection.url")).isEqualTo("jdbc:postgresql://127.0.0.1:5432/trackstudio");
-        assertThat(config.value("hibernate.connection.driver_class")).isEqualTo("org.postgresql.Driver");
+        assertThat(config.value("hibernate.dialect"))
+                .isEqualTo("org.hibernate.dialect.PostgreSQLDialect");
+        assertThat(config.value("hibernate.connection.url"))
+                .isEqualTo("jdbc:postgresql://127.0.0.1:5432/trackstudio");
+        assertThat(config.value("hibernate.connection.driver_class"))
+                .isEqualTo("org.postgresql.Driver");
         assertThat(config.value("hibernate.connection.username")).isEqualTo("postgres");
         assertThat(config.value("hibernate.connection.password")).isEqualTo("password");
     }

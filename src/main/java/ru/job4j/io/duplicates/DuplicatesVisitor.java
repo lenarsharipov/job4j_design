@@ -15,7 +15,8 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     public void getDuplicates() {
         for (Map.Entry<FileProperty, StringBuilder> entry : files.entrySet()) {
             if (entry.getValue().toString().split(System.lineSeparator()).length > 1) {
-                System.out.printf("%s - %d bytes%n%s%n", entry.getKey().getName(), entry.getKey().getSize(), entry.getValue());
+                System.out.printf("%s - %d bytes%n%s%n",
+                        entry.getKey().getName(), entry.getKey().getSize(), entry.getValue());
             }
         }
     }
@@ -23,11 +24,15 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         if (Files.isRegularFile(file)) {
-            FileProperty fileProperty = new FileProperty(file.toFile().length(), file.getFileName().toString());
+            FileProperty fileProperty = new FileProperty(
+                    file.toFile().length(), file.getFileName().toString());
             if (files.containsKey(fileProperty)) {
-                files.get(fileProperty).append(file.toAbsolutePath()).append(System.lineSeparator());
+                files.get(fileProperty)
+                        .append(file.toAbsolutePath())
+                        .append(System.lineSeparator());
             } else {
-                files.put(fileProperty, new StringBuilder(file.toAbsolutePath().toString()).append(System.lineSeparator()));
+                files.put(fileProperty, new StringBuilder(file.toAbsolutePath().toString())
+                        .append(System.lineSeparator()));
             }
         }
         return super.visitFile(file, attrs);

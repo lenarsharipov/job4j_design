@@ -46,7 +46,9 @@ public class Client {
             return false;
         }
         Client client = (Client) o;
-        return active == client.active && Objects.equals(name, client.name) && Objects.equals(surname, client.surname);
+        return active == client.active
+                && Objects.equals(name, client.name)
+                && Objects.equals(surname, client.surname);
     }
 
     @Override
