@@ -6,12 +6,20 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class AbstractStore implements Store {
+public abstract class AbstractStore implements Store {
+    public static final int TWENTY_FIVE_PERCENT_SHELF_LIFE = 25;
+    public static final int SEVENTY_FIVE_PERCENT_SHELF_LIFE = 75;
+    public static final int ONE_HUNDRED_PERCENT_SHELF_LIFE = 100;
     private final List<Food> foods = new ArrayList<>();
 
     @Override
-    public void add(Food food) {
-        foods.add(food);
+    public boolean add(Food food) {
+        boolean rsl = false;
+        if (isNotExpired(food)) {
+            foods.add(food);
+            rsl = true;
+        }
+        return rsl;
     }
 
     @Override
@@ -20,5 +28,7 @@ public class AbstractStore implements Store {
                 .filter(filter)
                 .collect(Collectors.toList());
     }
+
+    protected abstract boolean isNotExpired(Food food);
 
 }

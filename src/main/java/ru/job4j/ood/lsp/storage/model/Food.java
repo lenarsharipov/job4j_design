@@ -3,13 +3,13 @@ package ru.job4j.ood.lsp.storage.model;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class Food {
+public abstract class Food {
 
-    protected String name;
-    protected Calendar createDate;
-    protected Calendar expiryDate;
-    protected double price;
-    protected double discount;
+    private String name;
+    private final Calendar createDate;
+    private final Calendar expiryDate;
+    private double price;
+    private final double discount;
 
     public Food(String name,
                 Calendar createDate,
@@ -45,16 +45,8 @@ public class Food {
         return createDate;
     }
 
-    public void setCreateDate(Calendar createDate) {
-        this.createDate = createDate;
-    }
-
     public Calendar getExpiryDate() {
         return expiryDate;
-    }
-
-    public void setExpiryDate(Calendar expiryDate) {
-        this.expiryDate = expiryDate;
     }
 
     public double getPrice() {
@@ -67,10 +59,6 @@ public class Food {
 
     public double getDiscount() {
         return discount;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
     }
 
     @Override
