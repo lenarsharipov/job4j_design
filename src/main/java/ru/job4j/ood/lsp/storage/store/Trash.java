@@ -7,6 +7,7 @@ import java.util.Calendar;
 
 public class Trash extends AbstractStore {
     private final ExpirationCalculator<Calendar> expirationCalculator;
+    public static final int ONE_HUNDRED_PERCENT_SHELF_LIFE = 100;
 
     public Trash(ExpirationCalculator<Calendar> expirationCalculator) {
         this.expirationCalculator = expirationCalculator;

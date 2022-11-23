@@ -2,8 +2,6 @@ package ru.job4j.ood.lsp.storage.service;
 
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.lsp.storage.calculator.CalendarExpirationCalculator;
-import ru.job4j.ood.lsp.storage.calculator.ExpirationCalculator;
-import ru.job4j.ood.lsp.storage.model.Food;
 import ru.job4j.ood.lsp.storage.model.Milk;
 import ru.job4j.ood.lsp.storage.store.Shop;
 import ru.job4j.ood.lsp.storage.store.Store;
@@ -35,19 +33,17 @@ class ControlQualityTest {
                 now.get(Calendar.DATE) + 6,
                 6, 0);
         var milk = new Milk("молоко 3.2%", produced, expired, 45.90, 9.5);
-        ExpirationCalculator<Calendar> expirationCalculator
-                = new CalendarExpirationCalculator();
-        Store warehouse = new Warehouse(expirationCalculator);
-        Store shop = new Shop(expirationCalculator);
-        Store trash = new Trash(expirationCalculator);
+        var expirationCalculator = new CalendarExpirationCalculator();
+        var warehouse = new Warehouse(expirationCalculator);
+        var shop = new Shop(expirationCalculator);
+        var trash = new Trash(expirationCalculator);
         List<Store> stores = List.of(warehouse, shop, trash);
         var controlQuality = new ControlQuality(stores);
         var expectedStore = new Warehouse(expirationCalculator);
         expectedStore.add(milk);
         var result = controlQuality.check(milk);
         assertTrue(result instanceof Warehouse);
-        assertThat(result.findBy(s -> true))
-                .isEqualTo(expectedStore.findBy(s -> true));
+        assertThat(result.findBy(s -> true)).isEqualTo(expectedStore.findBy(s -> true));
     }
 
     @Test
@@ -64,19 +60,17 @@ class ControlQualityTest {
                 now.get(Calendar.DATE),
                 6, 0);
         var milk = new Milk("молоко 3.2%", produced, expired, 45.90, 9.5);
-        ExpirationCalculator<Calendar> expirationCalculator
-                = new CalendarExpirationCalculator();
-        Store warehouse = new Warehouse(expirationCalculator);
-        Store shop = new Shop(expirationCalculator);
-        Store trash = new Trash(expirationCalculator);
+        var expirationCalculator = new CalendarExpirationCalculator();
+        var warehouse = new Warehouse(expirationCalculator);
+        var shop = new Shop(expirationCalculator);
+        var trash = new Trash(expirationCalculator);
         List<Store> stores = List.of(warehouse, shop, trash);
         var controlQuality = new ControlQuality(stores);
         var expectedStore = new Trash(expirationCalculator);
         expectedStore.add(milk);
         var result = controlQuality.check(milk);
         assertTrue(result instanceof Trash);
-        assertThat(result.findBy(s -> true))
-                .isEqualTo(expectedStore.findBy(s -> true));
+        assertThat(result.findBy(s -> true)).isEqualTo(expectedStore.findBy(s -> true));
     }
 
     @Test
@@ -93,19 +87,17 @@ class ControlQualityTest {
                 now.get(Calendar.DATE) + 6,
                 6, 0);
         var milk = new Milk("молоко 3.2%", produced, expired, 45.90, 9.5);
-        ExpirationCalculator<Calendar> expirationCalculator
-                = new CalendarExpirationCalculator();
-        Store warehouse = new Warehouse(expirationCalculator);
-        Store shop = new Shop(expirationCalculator);
-        Store trash = new Trash(expirationCalculator);
+        var expirationCalculator = new CalendarExpirationCalculator();
+        var warehouse = new Warehouse(expirationCalculator);
+        var shop = new Shop(expirationCalculator);
+        var trash = new Trash(expirationCalculator);
         List<Store> stores = List.of(warehouse, shop, trash);
         var controlQuality = new ControlQuality(stores);
         var expectedStore = new Shop(expirationCalculator);
         expectedStore.add(milk);
         var result = controlQuality.check(milk);
         assertTrue(result instanceof Shop);
-        assertThat(result.findBy(s -> true))
-                .isEqualTo(expectedStore.findBy(s -> true));
+        assertThat(result.findBy(s -> true)).isEqualTo(expectedStore.findBy(s -> true));
     }
 
     @Test
@@ -122,18 +114,16 @@ class ControlQualityTest {
                 now.get(Calendar.DATE) + 1,
                 6, 0);
         var milk = new Milk("молоко 3.2%", produced, expired, 40, 10);
-        ExpirationCalculator<Calendar> expirationCalculator
-                = new CalendarExpirationCalculator();
-        Store warehouse = new Warehouse(expirationCalculator);
-        Store shop = new Shop(expirationCalculator);
-        Store trash = new Trash(expirationCalculator);
+        var expirationCalculator = new CalendarExpirationCalculator();
+        var warehouse = new Warehouse(expirationCalculator);
+        var shop = new Shop(expirationCalculator);
+        var trash = new Trash(expirationCalculator);
         List<Store> stores = List.of(warehouse, shop, trash);
         var controlQuality = new ControlQuality(stores);
-        Food expected = new Milk("молоко 3.2%", produced, expired, 36, 10);
+        var expected = new Milk("молоко 3.2%", produced, expired, 36, 10);
         var result = controlQuality.check(milk);
         assertTrue(result instanceof Shop);
-        assertThat(result.findBy(s -> true))
-                .isEqualTo(List.of(expected));
+        assertThat(result.findBy(s -> true)).isEqualTo(List.of(expected));
     }
 
     @Test

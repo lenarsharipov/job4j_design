@@ -7,9 +7,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public abstract class AbstractStore implements Store {
-    public static final int TWENTY_FIVE_PERCENT_SHELF_LIFE = 25;
-    public static final int SEVENTY_FIVE_PERCENT_SHELF_LIFE = 75;
-    public static final int ONE_HUNDRED_PERCENT_SHELF_LIFE = 100;
     private final List<Food> foods = new ArrayList<>();
 
     @Override
