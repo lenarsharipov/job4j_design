@@ -5,4 +5,5 @@ public class Lorry extends Vehicle {
     public Lorry(int size) {
         super(size);
     }
+
 }

@@ -43,4 +43,5 @@ public abstract class Vehicle {
                 + "size=" + size
                 + '}';
     }
+
 }
