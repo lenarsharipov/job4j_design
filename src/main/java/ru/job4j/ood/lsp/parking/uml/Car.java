@@ -7,4 +7,8 @@ public class Car extends Vehicle {
         super();
     }
 
+    @Override
+    public int getSize() {
+        return SIZE;
+    }
 }

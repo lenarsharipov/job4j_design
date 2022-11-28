@@ -1,6 +1,5 @@
 package ru.job4j.ood.lsp.parking.uml;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -8,8 +7,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Disabled
-class ParkingTest {
+class SimpleParkingTest {
 
     @Test
     public void whenTruckSizeLessTwoThenException() {
@@ -20,7 +18,7 @@ class ParkingTest {
 
     @Test
     public void whenAddTwoCarsAndTruckThenAllAdded() {
-        ParkingInterface parking = new Parking(2, 1);
+        Parking parking = new SimpleParking(2, 1);
         Vehicle car = new Car();
         Vehicle car2 = new Car();
         Vehicle truck = new Truck(2);
@@ -32,7 +30,7 @@ class ParkingTest {
 
     @Test
     public void whenAddThreeCarsAndTruckThenTwoCarsAndTruckAdded() {
-        ParkingInterface parking = new Parking(2, 1);
+        Parking parking = new SimpleParking(2, 1);
         Vehicle car = new Car();
         Vehicle car2 = new Car();
         Vehicle car3 = new Car();
@@ -46,17 +44,17 @@ class ParkingTest {
 
     @Test
     public void whenAddBigTruckThenSmallTruckThenAllAdded() {
-        ParkingInterface parking = new Parking(2, 1);
+        Parking parking = new SimpleParking(2, 1);
         Vehicle truck = new Truck(2);
         Vehicle truck2 = new Truck(3);
+        assertTrue(parking.add(truck2));
         assertTrue(parking.add(truck));
-        assertTrue(parking.add(truck));
-        assertThat(parking.findBy(v -> true)).isEqualTo(List.of(truck2, truck));
+        assertThat(parking.findBy(v -> true)).isEqualTo(List.of(truck, truck2));
     }
 
     @Test
     public void whenAddSmallTruckAndBigTruckThenSmallTruckAdded() {
-        ParkingInterface parking = new Parking(2, 1);
+        Parking parking = new SimpleParking(2, 1);
         Vehicle truck = new Truck(2);
         Vehicle truck2 = new Truck(3);
         assertTrue(parking.add(truck));
@@ -66,26 +64,26 @@ class ParkingTest {
 
     @Test
     public void whenAddBigTruckSmallTruckAndCarThenOnlyTrucksAdded() {
-        ParkingInterface parking = new Parking(2, 1);
+        Parking parking = new SimpleParking(2, 1);
         Vehicle truck = new Truck(2);
         Vehicle truck2 = new Truck(3);
         Vehicle car = new Car();
         assertTrue(parking.add(truck2));
         assertTrue(parking.add(truck));
         assertFalse(parking.add(car));
-        assertThat(parking.findBy(v -> true)).isEqualTo(List.of(truck2, truck));
+        assertThat(parking.findBy(v -> true)).isEqualTo(List.of(truck, truck2));
     }
 
     @Test
     public void whenAddBigTruckCarAndSmallTruckThenBigTruckAndCarAdded() {
-        ParkingInterface parking = new Parking(2, 1);
+        Parking parking = new SimpleParking(2, 1);
         Vehicle truck = new Truck(2);
         Vehicle truck2 = new Truck(3);
         Vehicle car = new Car();
         assertTrue(parking.add(truck2));
         assertTrue(parking.add(car));
         assertFalse(parking.add(truck));
-        assertThat(parking.findBy(v -> true)).isEqualTo(List.of(truck2, car));
+        assertThat(parking.findBy(v -> true)).isEqualTo(List.of(car, truck2));
     }
 
 }
