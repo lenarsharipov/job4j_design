@@ -19,8 +19,8 @@ public class SimpleParking implements Parking {
         }
         this.cars = cars;
         this.trucks = trucks;
-        this.carsList = new ArrayList<>();
-        this.trucksList = new ArrayList<>();
+        this.carsList = new ArrayList<>(cars);
+        this.trucksList = new ArrayList<>(trucks);
     }
 
     @Override
@@ -50,6 +50,7 @@ public class SimpleParking implements Parking {
             carsList.add(vehicle);
             rsl = true;
         }
+
         return rsl;
     }
 
