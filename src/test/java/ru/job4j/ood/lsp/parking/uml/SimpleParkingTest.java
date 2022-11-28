@@ -1,11 +1,9 @@
 package ru.job4j.ood.lsp.parking.uml;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 class SimpleParkingTest {
 
@@ -25,7 +23,7 @@ class SimpleParkingTest {
         assertTrue(parking.add(car));
         assertTrue(parking.add(car2));
         assertTrue(parking.add(truck));
-        assertThat(parking.findBy(v -> true)).isEqualTo(List.of(car, car2, truck));
+        assertEquals(parking.findBy(v -> true), List.of(car, car2, truck));
     }
 
     @Test
@@ -39,7 +37,7 @@ class SimpleParkingTest {
         assertTrue(parking.add(car2));
         assertFalse(parking.add(car3));
         assertTrue(parking.add(truck));
-        assertThat(parking.findBy(v -> true)).isEqualTo(List.of(car, car2, truck));
+        assertEquals(parking.findBy(v -> true), List.of(car, car2, truck));
     }
 
     @Test
@@ -49,7 +47,7 @@ class SimpleParkingTest {
         Vehicle truck2 = new Truck(3);
         assertTrue(parking.add(truck2));
         assertTrue(parking.add(truck));
-        assertThat(parking.findBy(v -> true)).isEqualTo(List.of(truck, truck2));
+        assertEquals(parking.findBy(v -> true), List.of(truck, truck2));
     }
 
     @Test
@@ -59,7 +57,7 @@ class SimpleParkingTest {
         Vehicle truck2 = new Truck(3);
         assertTrue(parking.add(truck));
         assertFalse(parking.add(truck2));
-        assertThat(parking.findBy(v -> true)).isEqualTo(List.of(truck));
+        assertEquals(parking.findBy(v -> true), List.of(truck));
     }
 
     @Test
@@ -71,7 +69,7 @@ class SimpleParkingTest {
         assertTrue(parking.add(truck2));
         assertTrue(parking.add(truck));
         assertFalse(parking.add(car));
-        assertThat(parking.findBy(v -> true)).isEqualTo(List.of(truck, truck2));
+        assertEquals(parking.findBy(v -> true), List.of(truck, truck2));
     }
 
     @Test
@@ -83,7 +81,7 @@ class SimpleParkingTest {
         assertTrue(parking.add(truck2));
         assertTrue(parking.add(car));
         assertFalse(parking.add(truck));
-        assertThat(parking.findBy(v -> true)).isEqualTo(List.of(car, truck2));
+        assertEquals(parking.findBy(v -> true), List.of(car, truck2));
     }
 
 }

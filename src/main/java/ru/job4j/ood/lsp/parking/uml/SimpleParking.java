@@ -8,8 +8,8 @@ import java.util.stream.Stream;
 
 public class SimpleParking implements Parking {
 
-    private final List<Vehicle> carsList = new ArrayList<>();
-    private final List<Vehicle> trucksList = new ArrayList<>();
+    private final List<Vehicle> carsList;
+    private final List<Vehicle> trucksList;
     private int cars;
     private int trucks;
 
@@ -19,6 +19,8 @@ public class SimpleParking implements Parking {
         }
         this.cars = cars;
         this.trucks = trucks;
+        this.carsList = new ArrayList<>();
+        this.trucksList = new ArrayList<>();
     }
 
     @Override
@@ -35,11 +37,11 @@ public class SimpleParking implements Parking {
 
     private boolean isAdded(Vehicle vehicle) {
         boolean rsl = false;
-        if (vehicle.getSize() == Car.SIZE && cars > 0) {
+        if (vehicle.getSize() == Car.SIZE && cars >= Car.SIZE) {
             carsList.add(vehicle);
             cars--;
             rsl = true;
-        } else if (vehicle.getSize() > Car.SIZE && trucks > 0) {
+        } else if (vehicle.getSize() > Car.SIZE && trucks >= Car.SIZE) {
             trucks--;
             trucksList.add(vehicle);
             rsl = true;
