@@ -1,14 +1,14 @@
-package ru.job4j.collection;
-
-import java.util.Arrays;
-import java.util.Objects;
-
 /**
  * Функционал простого множества:
  * хранит только уникальные элементы
  * тип хранимых элементов – String
  * количество хранимых элементов не ограничено
  */
+
+package ru.job4j.collection;
+
+import java.util.Arrays;
+import java.util.Objects;
 
 public class SimpleSet {
     private String[] container = new String[2];
