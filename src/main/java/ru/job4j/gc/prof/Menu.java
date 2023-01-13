@@ -43,7 +43,7 @@ public class Menu {
                 System.out.println(SELECT);
                 int size = Integer.parseInt(scanner.nextLine());
                 store.insert(size);
-                System.out.println(ARRAY_INFO + size);
+                System.out.println(ARRAY_INFO + size + " в " + LocalTime.now());
             } else if (MERGE_SORT == userChoice) {
                 System.out.printf(
                         "%s%s%s%n", merge.getClass().getSimpleName(), BEGIN, LocalTime.now()
