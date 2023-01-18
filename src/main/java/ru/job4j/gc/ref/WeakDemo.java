@@ -74,8 +74,10 @@ public class WeakDemo {
                 System.out.println("Removed");
             }
         };
+        System.out.println(object);
         ReferenceQueue<Object> queue = new ReferenceQueue<>();
         WeakReference<Object> weak = new WeakReference<>(object, queue);
+        System.out.println(weak.get());
         object = null;
 
         System.gc();
