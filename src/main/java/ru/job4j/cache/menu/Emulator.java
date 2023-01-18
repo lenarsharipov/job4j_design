@@ -26,8 +26,7 @@ public class Emulator {
         AbstractCache<String, String> dirFileCache = new DirFileCache(dirPath);
         while (true) {
             System.out.println(MENU);
-            Scanner scanner1 = new Scanner(System.in);
-            int userChoice = Integer.parseInt(scanner1.nextLine());
+            int userChoice = Integer.parseInt(getInput());
             if (userChoice == PUT_TO_CACHE) {
                 System.out.println(SET_FILE_NAME);
                 String fileName = getInput();
