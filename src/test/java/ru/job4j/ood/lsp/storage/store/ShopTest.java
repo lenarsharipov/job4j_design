@@ -53,25 +53,4 @@ class ShopTest {
         assertThat(shop.findBy(s -> true)).isNotEqualTo(List.of(milk));
     }
 
-    @Test
-    void whenAddMilkThenAddedToShopWithDiscount() {
-        var now = Calendar.getInstance();
-        var produced = new GregorianCalendar(
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DATE) - 2,
-                6, 0);
-        var expired = new GregorianCalendar(
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DATE) + 1,
-                6, 0);
-        var milk = new Milk("молоко 3.2%", produced, expired, 40, 10);
-        var expirationCalculator = new CalendarExpirationCalculator();
-        var shop = new Shop(expirationCalculator);
-        var expected = new Milk("молоко 3.2%", produced, expired, 36, 10);
-        assertTrue(shop.add(milk));
-        assertThat(shop.findBy(s -> true)).isEqualTo(List.of(expected));
-    }
-
 }

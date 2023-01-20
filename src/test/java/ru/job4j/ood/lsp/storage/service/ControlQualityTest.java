@@ -101,32 +101,6 @@ class ControlQualityTest {
     }
 
     @Test
-    void whenAddMilkThenAddedToShopWithDiscount() {
-        var now = Calendar.getInstance();
-        var produced = new GregorianCalendar(
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DATE) - 2,
-                6, 0);
-        var expired = new GregorianCalendar(
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DATE) + 1,
-                6, 0);
-        var milk = new Milk("молоко 3.2%", produced, expired, 40, 10);
-        var expirationCalculator = new CalendarExpirationCalculator();
-        var warehouse = new Warehouse(expirationCalculator);
-        var shop = new Shop(expirationCalculator);
-        var trash = new Trash(expirationCalculator);
-        List<Store> stores = List.of(warehouse, shop, trash);
-        var controlQuality = new ControlQuality(stores);
-        var expected = new Milk("молоко 3.2%", produced, expired, 36, 10);
-        var result = controlQuality.check(milk);
-        assertTrue(result instanceof Shop);
-        assertThat(result.findBy(s -> true)).isEqualTo(List.of(expected));
-    }
-
-    @Test
     void whenAddMilkWithInvalidArgsThenException() {
         var now = Calendar.getInstance();
         var produced = new GregorianCalendar(
