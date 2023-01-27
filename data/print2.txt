@@ -1,0 +1,1 @@
+Запись при помощи FileOutputStream
